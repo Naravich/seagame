@@ -15,7 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/home', function () {
-    return view('tasks.index');
+    return redirect('/tasks');
 });
 Auth::routes();
 
