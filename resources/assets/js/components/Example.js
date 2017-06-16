@@ -71,13 +71,12 @@ class Example extends Component {
 		</div>
 		<div className="container">
     		<div className="row">
-    			<div className="col-md-10 ">
 		    		<div className="panel panel-default">
 	            		<div className="panel-heading">
 				            Current Tasks
 				        </div>
 				        <div className="panel-body">
-				            <div className="col-md-10 ">
+				            <div className="col-md-12 ">
 				                <table className="table table-striped task-table">
 				                    <thead>
 				                            <th width="80%">Task</th>
@@ -89,7 +88,7 @@ class Example extends Component {
 				            </div>
 				            </div>
 				        </div>
-	    </div></div>
+	    </div>
 		</div></div>
         );
 

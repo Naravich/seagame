@@ -11449,40 +11449,36 @@ var Example = function (_Component) {
 						{ className: 'row' },
 						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 							'div',
-							{ className: 'col-md-10 ' },
+							{ className: 'panel panel-default' },
 							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 								'div',
-								{ className: 'panel panel-default' },
+								{ className: 'panel-heading' },
+								'Current Tasks'
+							),
+							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+								'div',
+								{ className: 'panel-body' },
 								__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 									'div',
-									{ className: 'panel-heading' },
-									'Current Tasks'
-								),
-								__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-									'div',
-									{ className: 'panel-body' },
+									{ className: 'col-md-12 ' },
 									__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-										'div',
-										{ className: 'col-md-10 ' },
+										'table',
+										{ className: 'table table-striped task-table' },
 										__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-											'table',
-											{ className: 'table table-striped task-table' },
+											'thead',
+											null,
 											__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-												'thead',
-												null,
-												__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-													'th',
-													{ width: '80%' },
-													'Task'
-												),
-												__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-													'th',
-													null,
-													'\xA0'
-												)
+												'th',
+												{ width: '80%' },
+												'Task'
 											),
-											__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__list__["a" /* default */], { items: this.state.items, 'delete': this.delTask.bind(this) })
-										)
+											__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+												'th',
+												null,
+												'\xA0'
+											)
+										),
+										__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__list__["a" /* default */], { items: this.state.items, 'delete': this.delTask.bind(this) })
 									)
 								)
 							)
