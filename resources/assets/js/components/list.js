@@ -2,17 +2,18 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
 
-
 class Tasklist extends Component {
-
+	delTask(item) {
+		console.log(item);
+  		this.props.delete(item);
+  		
+  	}
 	
     render() {
-    	var displayTask = (task) => 
-    						<tr key={Math.random()} >
-	                            <td width="80%">{task}</td><td>
-	                            <button className="btn btn-danger" >
-									Add Task
-								</button>	
+    	var displayTask = (item,id) => 
+    						<tr key={id} >
+	                            <td width="100%">{item}</td>
+	                            <td> <button onClick={()=>this.delTask(item)}>Delete</button>	
 	                            </td></tr>;
     	return(<tbody>{this.props.items.map(displayTask)}</tbody>);
     }

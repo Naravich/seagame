@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import Tasklist from './list';
-import Listrow from './listrow';
 
 class Example extends Component {
 	constructor() {
     super();
     this.state = {
-    	curitems: '1',
+    	curitems: "",
       items: [],
-       round: '1',
     	};
   	}
 
@@ -20,10 +18,13 @@ class Example extends Component {
     });
   	}
 
-  	dolist() {
-	   ReactDOM.render(<Tasklist items={this.state.items}
-	   							onclick={'sd'}
-	   	/>, document.getElementById('taskcu'));
+  	delTask(task) {
+  		console.log(task);
+  		const newState = this.state.items;
+	  	if (newState.indexOf(task) > -1) {
+	    	newState.splice(newState.indexOf(task), 1);
+	      this.setState({items: newState})
+	    }
   	}
 
   	addTask(e) {
@@ -31,11 +32,13 @@ class Example extends Component {
   			alert("Please Insert Name Task");
   		}
   		else{
-  			this.state.items.push(this.state.curitems);
-this.setState({arrayvar:this.state.arrayvar},this.dolist());
+  			var arrayvar = this.state.items.slice()
+		arrayvar.push(this.state.curitems)
+		this.setState({ items: arrayvar })
 	    	
 	   }
   	}
+
 
     render() { 
     	return(
@@ -66,7 +69,28 @@ this.setState({arrayvar:this.state.arrayvar},this.dolist());
 		        </div>
 		    </div>
 		</div>
-		</div>
+		<div className="container">
+    		<div className="row">
+    			<div className="col-md-10 ">
+		    		<div className="panel panel-default">
+	            		<div className="panel-heading">
+				            Current Tasks
+				        </div>
+				        <div className="panel-body">
+				            <div className="col-md-10 ">
+				                <table className="table table-striped task-table">
+				                    <thead>
+				                            <th width="80%">Task</th>
+				                            <th>&nbsp;</th>
+				                    </thead>
+
+				            <Tasklist items={this.state.items} delete={this.delTask.bind(this)}/></table>
+
+				            </div>
+				            </div>
+				        </div>
+	    </div></div>
+		</div></div>
         );
 
     }
