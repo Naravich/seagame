@@ -33,7 +33,7 @@ var DiscussionList = React.createClass({
         
         // วนลูป array ของ comments ที่ได้มาจาก props 
         // แล้วส่งต่อให้ DiscussionComment นำไปแสดงผล
-        var DiscussionComments = this.props.comments.map(function(data, index) {
+        var DiscussionComments = this.props.comments.map(function(data,index) {
 
             return (
                 
