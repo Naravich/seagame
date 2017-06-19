@@ -22,13 +22,15 @@ var DiscussionForm = React.createClass({
     // เมื่อฟอร์มถูก submit ให้เซฟค่า message ที่อยู่ใน state 
     // โดยใช้ method ที่ได้รับมาจาก props ที่ชื่อ handleSubmit
     _onSubmit: function(event) {
+        if(this.state.message){
         event.preventDefault();
         this.props.handleSubmit(this.state.message);
- 
+        
         // จากนั้นก็ reset ค่า message ให้เป็นค่าว่างเหมือนเดิม
         this.setState({
             message: ''
         });
+        }
     },
  
     // ผูก event ต่างๆ เข้ากับ element

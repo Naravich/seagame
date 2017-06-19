@@ -11,7 +11,7 @@ var DiscussionComment = React.createClass({
         // รับข้อมูล comment ที่จะแสดงผ่านทาง props
         var comment = this.props.comment;
         return (
-            <li>{comment.title}</li>
+            <div>{comment.title}</div>
         );
     }
 });
@@ -24,16 +24,28 @@ var DiscussionList = React.createClass({
         // แล้วส่งต่อให้ DiscussionComment นำไปแสดงผล
         var DiscussionComments = this.props.comments.map(function(data, index) {
             return (
-                <DiscussionComment key={data.ID} comment={data} />
+                <tr><td width="100%">
+                <DiscussionComment key={data.ID} comment={data} /></td>
+                <td> <button onClick={()=>this.delTask(item)}>Delete</button>   
+                                 </td></tr>
             );
         });
         return (
-            <ul>
+            <tbody>
                 {DiscussionComments}
-            </ul>
+            </tbody>
         );
     }
 });
  
+
+    // render() {
+    //     var displayTask = (item,id) => 
+    //                         <tr key={id} >
+    //                             <td width="100%">{item}</td>
+    //                             <td> <button onClick={()=>this.delTask(item)}>Delete</button>   
+    //                             </td></tr>;
+    //     return(<tbody>{this.props.items.map(displayTask)}</tbody>);
+    // }
 // module.exports = DiscussionList;
 export default DiscussionList;

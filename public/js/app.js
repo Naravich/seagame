@@ -5119,9 +5119,51 @@ var DiscussionApp = React.createClass({
         return React.createElement(
             'div',
             null,
-            'Add Task :',
             React.createElement(__WEBPACK_IMPORTED_MODULE_0__DiscussionForm__["a" /* default */], { handleSubmit: this._addComment }),
-            React.createElement(__WEBPACK_IMPORTED_MODULE_1__DiscussionList__["a" /* default */], { comments: this.state.allMessages })
+            React.createElement(
+                'div',
+                { className: 'container' },
+                React.createElement(
+                    'div',
+                    { className: 'row' },
+                    React.createElement(
+                        'div',
+                        { className: 'panel panel-default' },
+                        React.createElement(
+                            'div',
+                            { className: 'panel-heading' },
+                            'Current Tasks'
+                        ),
+                        React.createElement(
+                            'div',
+                            { className: 'panel-body' },
+                            React.createElement(
+                                'div',
+                                { className: 'col-md-12 ' },
+                                React.createElement(
+                                    'table',
+                                    { className: 'table table-striped task-table' },
+                                    React.createElement(
+                                        'thead',
+                                        null,
+                                        React.createElement(
+                                            'th',
+                                            { width: '80%' },
+                                            'Task'
+                                        ),
+                                        React.createElement(
+                                            'th',
+                                            null,
+                                            'delete'
+                                        )
+                                    ),
+                                    React.createElement(__WEBPACK_IMPORTED_MODULE_1__DiscussionList__["a" /* default */], { comments: this.state.allMessages })
+                                )
+                            )
+                        )
+                    )
+                )
+            )
         );
     }
 });
@@ -7309,13 +7351,15 @@ var DiscussionForm = React.createClass({
     // เมื่อฟอร์มถูก submit ให้เซฟค่า message ที่อยู่ใน state 
     // โดยใช้ method ที่ได้รับมาจาก props ที่ชื่อ handleSubmit
     _onSubmit: function _onSubmit(event) {
-        event.preventDefault();
-        this.props.handleSubmit(this.state.message);
+        if (this.state.message) {
+            event.preventDefault();
+            this.props.handleSubmit(this.state.message);
 
-        // จากนั้นก็ reset ค่า message ให้เป็นค่าว่างเหมือนเดิม
-        this.setState({
-            message: ''
-        });
+            // จากนั้นก็ reset ค่า message ให้เป็นค่าว่างเหมือนเดิม
+            this.setState({
+                message: ''
+            });
+        }
     },
 
     // ผูก event ต่างๆ เข้ากับ element
@@ -7407,7 +7451,7 @@ var DiscussionComment = React.createClass({
         // รับข้อมูล comment ที่จะแสดงผ่านทาง props
         var comment = this.props.comment;
         return React.createElement(
-            'li',
+            'div',
             null,
             comment.title
         );
@@ -7423,16 +7467,46 @@ var DiscussionList = React.createClass({
         // วนลูป array ของ comments ที่ได้มาจาก props 
         // แล้วส่งต่อให้ DiscussionComment นำไปแสดงผล
         var DiscussionComments = this.props.comments.map(function (data, index) {
-            return React.createElement(DiscussionComment, { key: data.ID, comment: data });
+            var _this = this;
+
+            return React.createElement(
+                'tr',
+                null,
+                React.createElement(
+                    'td',
+                    { width: '100%' },
+                    React.createElement(DiscussionComment, { key: data.ID, comment: data })
+                ),
+                React.createElement(
+                    'td',
+                    null,
+                    ' ',
+                    React.createElement(
+                        'button',
+                        { onClick: function onClick() {
+                                return _this.delTask(item);
+                            } },
+                        'Delete'
+                    )
+                )
+            );
         });
         return React.createElement(
-            'ul',
+            'tbody',
             null,
             DiscussionComments
         );
     }
 });
 
+// render() {
+//     var displayTask = (item,id) => 
+//                         <tr key={id} >
+//                             <td width="100%">{item}</td>
+//                             <td> <button onClick={()=>this.delTask(item)}>Delete</button>   
+//                             </td></tr>;
+//     return(<tbody>{this.props.items.map(displayTask)}</tbody>);
+// }
 // module.exports = DiscussionList;
 /* harmony default export */ __webpack_exports__["a"] = (DiscussionList);
 
