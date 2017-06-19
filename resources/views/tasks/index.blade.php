@@ -5,10 +5,9 @@
 
     <!-- Bootstrap Boilerplate... -->
 
-    
 
-        <div id="example"></div>
-
+        <div id="DiscussionApp"></div>
+<div id="example"></div>
 
     <!-- TODO: Current Tasks -->
 @endsection
