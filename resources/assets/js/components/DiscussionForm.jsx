@@ -30,7 +30,7 @@ var DiscussionForm = React.createClass({
         this.setState({
             message: ''
         });
-        }
+    }
     },
  
     // ผูก event ต่างๆ เข้ากับ element
@@ -62,8 +62,7 @@ var DiscussionForm = React.createClass({
                                         
                                         <button className="btn btn-default" onClick={this._onSubmit}>Comment</button>
                                     </div>
-                                </div>
-                                </form>
+                                </div></form>
                         </div>
                     </div>
                 </div>

@@ -6,28 +6,38 @@ var React = require('react');
  
 // สร้าง component ที่จะใช้แสดงตัว comment
 var DiscussionComment = React.createClass({
+    // delTask(item) {
+    //     console.log(item.title);
+    //     this.props.delete(item.title);
+        
+    // },
     render: function() {
         
-        // รับข้อมูล comment ที่จะแสดงผ่านทาง props
+        // รับข้อมูล comment ที่จะแสดงผ่านทาง props line 23 <button onClick={()=>this.delTask(comment)}>Delete</button>   
         var comment = this.props.comment;
         return (
+            <tr><td width="100%">
             <div>{comment.title}</div>
+            </td>
+                <td> 
+
+                                 </td></tr>
         );
     }
 });
  
 // สร้าง component ที่จะเอาไว้ทำ iteration
 var DiscussionList = React.createClass({
+    
     render: function() {
         
         // วนลูป array ของ comments ที่ได้มาจาก props 
         // แล้วส่งต่อให้ DiscussionComment นำไปแสดงผล
         var DiscussionComments = this.props.comments.map(function(data, index) {
+
             return (
-                <tr><td width="100%">
-                <DiscussionComment key={data.ID} comment={data} /></td>
-                <td> <button onClick={()=>this.delTask(item)}>Delete</button>   
-                                 </td></tr>
+                
+                <DiscussionComment key={data.ID} comment={data} />
             );
         });
         return (

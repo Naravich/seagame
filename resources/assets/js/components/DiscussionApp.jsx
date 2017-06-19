@@ -12,7 +12,15 @@ var DiscussionApp = React.createClass({
             allMessages: []
         };
     },
- 
+    //method for del
+    delTask(task) {
+        console.log(task);
+        const newState = this.state.items;
+        if (newState.indexOf(allMessages) > -1) {
+            newState.splice(newState.indexOf(allMessages), 1);
+          this.setState({allMessages: newState})
+        }
+    },
     // สร้าง method สำหรับเซฟ comment
     _addComment: function(message) {
         
@@ -48,8 +56,8 @@ var DiscussionApp = React.createClass({
                                             <th width="80%">Task</th>
                                             <th>delete</th>
                                     </thead>
-                            <DiscussionList comments={this.state.allMessages}/>
-                </table>
+                            <DiscussionList comments={this.state.allMessages} delete={this.delTask.bind(this)}/>
+                            </table>
                             </div>
                             </div>
                         </div>

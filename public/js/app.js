@@ -5097,6 +5097,15 @@ var DiscussionApp = React.createClass({
             allMessages: []
         };
     },
+    //method for del
+    delTask: function delTask(task) {
+        console.log(task);
+        var newState = this.state.items;
+        if (newState.indexOf(allMessages) > -1) {
+            newState.splice(newState.indexOf(allMessages), 1);
+            this.setState({ allMessages: newState });
+        }
+    },
 
     // สร้าง method สำหรับเซฟ comment
     _addComment: function _addComment(message) {
@@ -5157,7 +5166,7 @@ var DiscussionApp = React.createClass({
                                             'delete'
                                         )
                                     ),
-                                    React.createElement(__WEBPACK_IMPORTED_MODULE_1__DiscussionList__["a" /* default */], { comments: this.state.allMessages })
+                                    React.createElement(__WEBPACK_IMPORTED_MODULE_1__DiscussionList__["a" /* default */], { comments: this.state.allMessages, 'delete': this.delTask.bind(this) })
                                 )
                             )
                         )
@@ -7446,14 +7455,28 @@ var React = __webpack_require__(20);
 var DiscussionComment = React.createClass({
     displayName: 'DiscussionComment',
 
+    // delTask(item) {
+    //     console.log(item.title);
+    //     this.props.delete(item.title);
+
+    // },
     render: function render() {
 
-        // รับข้อมูล comment ที่จะแสดงผ่านทาง props
+        // รับข้อมูล comment ที่จะแสดงผ่านทาง props line 23 <button onClick={()=>this.delTask(comment)}>Delete</button>   
         var comment = this.props.comment;
         return React.createElement(
-            'div',
+            'tr',
             null,
-            comment.title
+            React.createElement(
+                'td',
+                { width: '100%' },
+                React.createElement(
+                    'div',
+                    null,
+                    comment.title
+                )
+            ),
+            React.createElement('td', null)
         );
     }
 });
@@ -7462,34 +7485,14 @@ var DiscussionComment = React.createClass({
 var DiscussionList = React.createClass({
     displayName: 'DiscussionList',
 
+
     render: function render() {
 
         // วนลูป array ของ comments ที่ได้มาจาก props 
         // แล้วส่งต่อให้ DiscussionComment นำไปแสดงผล
         var DiscussionComments = this.props.comments.map(function (data, index) {
-            var _this = this;
 
-            return React.createElement(
-                'tr',
-                null,
-                React.createElement(
-                    'td',
-                    { width: '100%' },
-                    React.createElement(DiscussionComment, { key: data.ID, comment: data })
-                ),
-                React.createElement(
-                    'td',
-                    null,
-                    ' ',
-                    React.createElement(
-                        'button',
-                        { onClick: function onClick() {
-                                return _this.delTask(item);
-                            } },
-                        'Delete'
-                    )
-                )
-            );
+            return React.createElement(DiscussionComment, { key: data.ID, comment: data });
         });
         return React.createElement(
             'tbody',
