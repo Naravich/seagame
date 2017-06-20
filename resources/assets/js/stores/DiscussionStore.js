@@ -13,14 +13,14 @@ var _comments = [];
 // private method ของ Store สำหรับเซฟ comment 
 // (ย้ายมาจาก DiscussionApp)
 function addData(comment) {
-    var id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
+    var id = (+new Date() + Math.floor(Math.random() * 999999009999)).toString(36);
     var newMessage = [{
         'ID': id,
         'title': comment
     }];
     _comments = newMessage.concat(_comments);
 }
- 
+// delete method
 function delTask(comment) {
   		console.log(comment);
   		const newState =_comments;
@@ -29,6 +29,7 @@ function delTask(comment) {
 	      _comments=newState;
 	    }
   	}
+
 // public method ต่างๆ ของ Store
 var DiscussionStore = assign({}, EventEmitter.prototype, {
  
