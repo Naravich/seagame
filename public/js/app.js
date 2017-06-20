@@ -5386,11 +5386,13 @@ module.exports = DiscussionActions;
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__DiscussionForm__ = __webpack_require__(128);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__DiscussionList__ = __webpack_require__(129);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_router_dom__ = __webpack_require__(241);
 var React = __webpack_require__(6);
 
 // โหลด component ลูก มาใช้
 // var DiscussionForm = require('./DiscussionForm.jsx');
 // var DiscussionList = require('./DiscussionList.jsx');
+
 
 
 
@@ -5462,6 +5464,11 @@ var DiscussionApp = React.createClass({
         return React.createElement(
             'div',
             null,
+            React.createElement(
+                __WEBPACK_IMPORTED_MODULE_2_react_router_dom__["c" /* Link */],
+                { to: '/home' },
+                'home'
+            ),
             React.createElement(__WEBPACK_IMPORTED_MODULE_0__DiscussionForm__["a" /* default */], { handleSubmit: this._addComment }),
             React.createElement(
                 'div',
@@ -12083,7 +12090,7 @@ var ReactDOM = __webpack_require__(77);
 // 	ReactDOM.render(<DiscussionApp /> , document.getElementById('DiscussionApp'));
 // }
 // if (document.getElementById('home')) {
-// 	ReactDOM.render(<Home/>, document.getElementById('home'));//browser router
+// 	ReactDOM.render(<Home/>, document.getElementById('home'));
 // }
 ReactDOM.render(React.createElement(
   __WEBPACK_IMPORTED_MODULE_1_react_router_dom__["a" /* BrowserRouter */],
@@ -13232,11 +13239,6 @@ var Home = React.createClass({
                             'div',
                             { className: 'panel-body' },
                             React.createElement(
-                                'a',
-                                { href: '/tasks' },
-                                'Tasks'
-                            ),
-                            React.createElement(
                                 __WEBPACK_IMPORTED_MODULE_0_react_router_dom__["c" /* Link */],
                                 { to: '/tasks' },
                                 'Tasks route'
@@ -13254,7 +13256,7 @@ var Home = React.createClass({
 // We only want to try to render our component on pages that have a div with an ID
 // of "example"; otherwise, we will see an error in our console 
 
-// var DiscussionApp = require('./DiscussionApp.jsx');
+// var DiscussionApp = require('./DiscussionApp.jsx');<a href="/tasks">Tasks</a>
 // var DiscussionList = require('./DiscussionList.jsx');
 
 /***/ }),

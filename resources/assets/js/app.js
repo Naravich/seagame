@@ -14,7 +14,7 @@ import {Route, BrowserRouter} from 'react-router-dom'
 // 	ReactDOM.render(<DiscussionApp /> , document.getElementById('DiscussionApp'));
 // }
 // if (document.getElementById('home')) {
-// 	ReactDOM.render(<Home/>, document.getElementById('home'));//browser router
+// 	ReactDOM.render(<Home/>, document.getElementById('home'));
 // }
   ReactDOM.render(
   <BrowserRouter> 

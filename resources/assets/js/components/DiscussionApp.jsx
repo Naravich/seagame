@@ -5,6 +5,7 @@ var React = require('react');
 // var DiscussionList = require('./DiscussionList.jsx');
  import DiscussionForm from './DiscussionForm';
  import DiscussionList from './DiscussionList';
+ import {Link} from 'react-router-dom'
 
 // โหลด Store มาใช้
 var DiscussionStore = require('../stores/DiscussionStore');
@@ -66,12 +67,12 @@ var DiscussionApp = React.createClass({
     },
  
     render: function() {
-    
+
         // ดึง comment จาก Store แทนการดึงจาก state
         var comments = DiscussionStore.getAll();
         return (
             <div>
-                
+                <Link to="/home">home</Link>
                  <DiscussionForm handleSubmit={this._addComment}  />
                  <div className="container">
             <div className="row">
