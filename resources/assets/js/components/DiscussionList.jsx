@@ -3,14 +3,14 @@
 
 var React = require('react');
  import DiscussionApp from './DiscussionApp';
- 
+ var DiscussionActions = require('../actions/DiscussionActions');
 // สร้าง component ที่จะใช้แสดงตัว comment
 var DiscussionComment = React.createClass({
-    // delTask(item) {
-    //     console.log(item.title);
-    //     this.props.delete(item.title);
-        
-    // },
+    delTask(item) {
+        console.log(item.title);
+        // this.props.delete(item.title);
+        DiscussionActions.delTask(item);
+    },
     render: function() {
         
         // รับข้อมูล comment ที่จะแสดงผ่านทาง props line 23 <button onClick={()=>this.delTask(comment)}>Delete</button>   
@@ -19,7 +19,7 @@ var DiscussionComment = React.createClass({
             <tr><td width="100%">
             <div>{comment.title}</div>
             </td>
-                <td> 
+                <td> <button className="btn btn-danger" onClick={()=>this.delTask(comment)}>Delete</button>
 
                                  </td></tr>
         );

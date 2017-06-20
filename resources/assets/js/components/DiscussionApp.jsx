@@ -20,14 +20,14 @@ var DiscussionApp = React.createClass({
    //      };
    //  },
    //  //method for del
-   //  delTask(task) {
-   //      console.log(task);
-   //      const newState = this.state.items;
-   //      if (newState.indexOf(allMessages) > -1) {
-   //          newState.splice(newState.indexOf(allMessages), 1);
-   //        this.setState({allMessages: newState})
-   //      }
-   //  },
+    // delTask(task) {
+    //     console.log(task);
+    //     const newState = this.state.items;
+    //     if (newState.indexOf(allMessages) > -1) {
+    //         newState.splice(newState.indexOf(allMessages), 1);
+    //       this.setState({allMessages: newState})
+    //     }
+    // },
    //  // สร้าง method สำหรับเซฟ comment
    //  _addComment: function(message) {
         

@@ -15,8 +15,17 @@ var DiscussionActions = {
             actionType: DiscussionConstants.DISCUSSION_CREATE,
             comment: comment,
         });
+    },
+    delTask: function(comment) {
+        
+        // บอกว่า Action นี้ เป็นแบบ DISCUSSION_CREATE นะ
+        // พร้อมกับส่งค่า comment พ่วงไปด้วย
+        AppDispatcher.dispatch({
+            actionType: DiscussionConstants.DISCUSSION_DELETE,
+            comment: comment,
+        });
     }
- 
 };
- 
+
+
 module.exports = DiscussionActions;

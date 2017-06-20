@@ -5105,14 +5105,14 @@ var DiscussionApp = React.createClass({
     //      };
     //  },
     //  //method for del
-    //  delTask(task) {
-    //      console.log(task);
-    //      const newState = this.state.items;
-    //      if (newState.indexOf(allMessages) > -1) {
-    //          newState.splice(newState.indexOf(allMessages), 1);
-    //        this.setState({allMessages: newState})
-    //      }
-    //  },
+    // delTask(task) {
+    //     console.log(task);
+    //     const newState = this.state.items;
+    //     if (newState.indexOf(allMessages) > -1) {
+    //         newState.splice(newState.indexOf(allMessages), 1);
+    //       this.setState({allMessages: newState})
+    //     }
+    // },
     //  // สร้าง method สำหรับเซฟ comment
     //  _addComment: function(message) {
 
@@ -11413,17 +11413,25 @@ var DiscussionConstants = __webpack_require__(117);
 // รวม Action ต่างๆ ในแอป
 var DiscussionActions = {
 
-  // เมื่อเกิด Action นี้ให้ทำอะไร ?
-  addComment: function addComment(comment) {
+    // เมื่อเกิด Action นี้ให้ทำอะไร ?
+    addComment: function addComment(comment) {
 
-    // บอกว่า Action นี้ เป็นแบบ DISCUSSION_CREATE นะ
-    // พร้อมกับส่งค่า comment พ่วงไปด้วย
-    AppDispatcher.dispatch({
-      actionType: DiscussionConstants.DISCUSSION_CREATE,
-      comment: comment
-    });
-  }
+        // บอกว่า Action นี้ เป็นแบบ DISCUSSION_CREATE นะ
+        // พร้อมกับส่งค่า comment พ่วงไปด้วย
+        AppDispatcher.dispatch({
+            actionType: DiscussionConstants.DISCUSSION_CREATE,
+            comment: comment
+        });
+    },
+    delTask: function delTask(comment) {
 
+        // บอกว่า Action นี้ เป็นแบบ DISCUSSION_CREATE นะ
+        // พร้อมกับส่งค่า comment พ่วงไปด้วย
+        AppDispatcher.dispatch({
+            actionType: DiscussionConstants.DISCUSSION_DELETE,
+            comment: comment
+        });
+    }
 };
 
 module.exports = DiscussionActions;
@@ -11519,15 +11527,15 @@ var DiscussionForm = React.createClass({
     // เมื่อฟอร์มถูก submit ให้เซฟค่า message ที่อยู่ใน state 
     // โดยใช้ method ที่ได้รับมาจาก props ที่ชื่อ handleSubmit
     _onSubmit: function _onSubmit(event) {
-        // if(this.state.message){
-        event.preventDefault();
-        DiscussionActions.addComment(this.state.message);
+        if (this.state.message) {
+            event.preventDefault();
+            DiscussionActions.addComment(this.state.message);
 
-        // จากนั้นก็ reset ค่า message ให้เป็นค่าว่างเหมือนเดิม
-        this.setState({
-            message: ''
-        });
-        // }
+            // จากนั้นก็ reset ค่า message ให้เป็นค่าว่างเหมือนเดิม
+            this.setState({
+                message: 'new task'
+            });
+        }
     },
 
     // ผูก event ต่างๆ เข้ากับ element
@@ -11609,17 +11617,18 @@ var DiscussionForm = React.createClass({
 
 var React = __webpack_require__(20);
 
-
+var DiscussionActions = __webpack_require__(111);
 // สร้าง component ที่จะใช้แสดงตัว comment
 var DiscussionComment = React.createClass({
     displayName: 'DiscussionComment',
+    delTask: function delTask(item) {
+        console.log(item.title);
+        // this.props.delete(item.title);
+        DiscussionActions.delTask(item);
+    },
 
-    // delTask(item) {
-    //     console.log(item.title);
-    //     this.props.delete(item.title);
-
-    // },
     render: function render() {
+        var _this = this;
 
         // รับข้อมูล comment ที่จะแสดงผ่านทาง props line 23 <button onClick={()=>this.delTask(comment)}>Delete</button>   
         var comment = this.props.comment;
@@ -11635,7 +11644,18 @@ var DiscussionComment = React.createClass({
                     comment.title
                 )
             ),
-            React.createElement('td', null)
+            React.createElement(
+                'td',
+                null,
+                ' ',
+                React.createElement(
+                    'button',
+                    { className: 'btn btn-danger', onClick: function onClick() {
+                            return _this.delTask(comment);
+                        } },
+                    'Delete'
+                )
+            )
         );
     }
 });
@@ -11947,8 +11967,8 @@ var Tasklist = function (_Component) {
 var keyMirror = __webpack_require__(138);
 
 module.exports = keyMirror({
-  DISCUSSION_CREATE: null
-
+  DISCUSSION_CREATE: null,
+  DISCUSSION_DELETE: null
   // หากอนาคตจะเพิ่มฟีเจอร์ให้สามารถแก้ไขและลบ comment ได้ด้วย
   // ก็ให้เพิ่ม actionType ตรงนี้ได้เลย
   // DISCUSSION_EDIT: null,
@@ -54539,6 +54559,14 @@ function addData(comment) {
     _comments = newMessage.concat(_comments);
 }
 
+function delTask(comment) {
+    console.log(comment);
+    var newState = _comments;
+    if (newState.indexOf(comment) > -1) {
+        newState.splice(newState.indexOf(comment), 1);
+        _comments = newState;
+    }
+}
 // public method ต่างๆ ของ Store
 var DiscussionStore = assign({}, EventEmitter.prototype, {
 
@@ -54574,6 +54602,9 @@ AppDispatcher.register(function (action) {
     switch (action.actionType) {
         case DiscussionConstants.DISCUSSION_CREATE:
             addData(action.comment);
+            break;
+        case DiscussionConstants.DISCUSSION_DELETE:
+            delTask(action.comment);
             break;
         default:
         // no op

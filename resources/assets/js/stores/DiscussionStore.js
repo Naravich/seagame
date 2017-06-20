@@ -21,6 +21,14 @@ function addData(comment) {
     _comments = newMessage.concat(_comments);
 }
  
+function delTask(comment) {
+  		console.log(comment);
+  		const newState =_comments;
+	  	if (newState.indexOf(comment) > -1) {
+	    	newState.splice(newState.indexOf(comment), 1);
+	      _comments=newState;
+	    }
+  	}
 // public method ต่างๆ ของ Store
 var DiscussionStore = assign({}, EventEmitter.prototype, {
  
@@ -58,6 +66,9 @@ AppDispatcher.register(function(action) {
         case DiscussionConstants.DISCUSSION_CREATE:
             addData(action.comment);
             break;
+        case DiscussionConstants.DISCUSSION_DELETE:
+        	delTask(action.comment);
+        	break;
         default:
             // no op
     }
