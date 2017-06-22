@@ -4,9 +4,7 @@
 @section('content')
 
     <!-- Bootstrap Boilerplate... -->
-
-
-   <div id="DiscussionApp"></div>
+   <div id="App"></div>
 <!-- <div id="example"></div> -->
 
     <!-- TODO: Current Tasks -->

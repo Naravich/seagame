@@ -12,6 +12,12 @@
 
     <!-- Styles -->
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+    <script>
+        window.Laravel = <?php echo json_encode([
+            'csrfToken' => csrf_token(),
+            'apiToken' => Auth::user() ? Auth::user()->api_token : '',
+        ]); ?>
+    </script>
 
 
 </head>
@@ -79,3 +85,4 @@
     <!-- Scripts -->
 </body>
 </html>
+

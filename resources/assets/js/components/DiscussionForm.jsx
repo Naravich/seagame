@@ -1,42 +1,36 @@
 // var DiscussionApp = require('./DiscussionApp.jsx');
 // var DiscussionList = require('./DiscussionList.jsx');
-var React = require('react');
-var DiscussionActions = require('../actions/DiscussionActions');
- import DiscussionApp from './DiscussionApp';
-var DiscussionForm = React.createClass({
+import React, { Component } from 'react';
+import { Field, reduxForm } from 'redux-form';
+// import { taskAdd } from '../actions/action';
+import { bindActionCreators } from 'redux';
  
-    // กำหนด message ให้เป็น state ที่มีค่าเริ่มต้นเป็นค่าว่าง
-    getInitialState: function() {
-        return {
-            message: ''
-        };
-    },
- 
-    // เมื่อ user พิมพ์ comment ให้อัพเดท message 
-    // ให้เป็นค่าเดียวกับที่ user พิมพ์มา
-    _onChange: function(event) {
-        this.setState({
-            message: event.target.value
-        });
-    },
- 
-    // เมื่อฟอร์มถูก submit ให้เซฟค่า message ที่อยู่ใน state 
-    // โดยใช้ method ที่ได้รับมาจาก props ที่ชื่อ handleSubmit
-    _onSubmit: function(event) {
-        if(this.state.message){
-        event.preventDefault();
-        DiscussionActions.addComment(this.state.message);
+class DiscussionForm extends Component {  
+    renderField(field){
         
-        // จากนั้นก็ reset ค่า message ให้เป็นค่าว่างเหมือนเดิม
-        this.setState({
-            message: 'new task'
-        });
+        const {meta: {touched,error} }=field;
+        const className=`form-group ${touched && error ? 'has-error':''}`;
+        return(
+            <div className={className}>
+                <label>{field.label}</label>
+                <input
+                    className="form-control"
+                    placeholder="Enter Task here..."
+                    type ="text"
+                    {...field.input}
+                />
+                <div className="control-label">
+                {touched ? error :''}</div>
+            </div>
+            );
     }
-    },
- 
-    // ผูก event ต่างๆ เข้ากับ element
-    // พร้อมกับกำหนด value ของช่องกรอก comment ให้มีค่าตาม message
-    render: function() {
+    onSubmit(values) {
+            //this ===component
+            console.log(values);
+        }
+    render() {
+        const {handleSubmit}=this.props;
+        
         return (
 
             <div className="container">
@@ -44,37 +38,39 @@ var DiscussionForm = React.createClass({
                     <div className="panel panel-default">
                         <div className="panel-heading">New Task</div>
                         <div className="panel-body">
-                            <div className="col-md-12 ">
-                            <form onSubmit={this._onSubmit}>
-                                <div className="form-group">
-                                    <label form="task-name" className="col-sm-3 control-label">Task</label>
-                                    <div className="col-sm-6"> 
-                                        <input type="text" className="form-control" 
-                                        placeholder="Enter message here..." 
-                                        onChange={this._onChange}
-                                        value={this.state.message}
-                                        />
-                                    </div>
-                                    
-                                </div>
-
-                                <div className="form-group">
-                                    <div className="col-sm-offset-3 col-sm-6">
-                                        
-                                        <button className="btn btn-default" onClick={this._onSubmit}>Comment</button>
-                                    </div>
-                                </div></form>
+                            <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
+                                <Field 
+                                    lable="Task"
+                                    name="task"
+                                    component={this.renderField}
+                                />
+                                <button type="submit" className="btn btn-danger">Add</button>
+                                   
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
 
 
             
         );
     }
-});
- export default DiscussionForm;
+}
+
+function validate(values){
+    //console.log(values)->{task:'asdf'}
+    const errors={};
+    if(!values.task){
+        errors.task="Please enter a task";
+    }
+    //Validate the inputs from 'values'
+    return errors;
+}
+
+export default reduxForm({
+    validate,
+    form:'PostsNewForm'
+})(DiscussionForm);
  //module.exports = DiscussionForm;
