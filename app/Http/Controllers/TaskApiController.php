@@ -31,38 +31,24 @@ class TaskApiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
-    {
-        //
-        $id = Auth::guard('api')->user()->id;
-        Log::info($id);
-
-        $input = $request->input("task");
-        $task = new Task;
-        $task->name = $input;
-        $task->user_id = $id;
-        $task->save();
-
+    public function store(Request $request){
+        $this->validate($request, [
+            'name' => 'required|max:255',
+        ]);
+        $task = $request->user()->tasks()->create([
+            'name' => $request->name,
+        ]);
         return response()->json([
-            'task' => $task
+            'tasks' => $task
         ]);
     }
-
-    
-    public function edit($id)
+    public function destroy(Request $request, Task $task)
     {
-        //
-    }
-
-    
-    public function destroy(Request $request,$taskId)
-    {
-        //
-        $task = Task::where('id',$taskId)->first();
-
+        $this->authorize('destroy', $task);
         $task->delete();
+        
         return response()->json([
-            'task'=>$task
+            'tasks' => $task
         ]);
     }
 }

@@ -3,32 +3,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import {load} from '../actions/action';
+import {load,deleteTask} from '../actions/action';
 import reducer from '../reducers/index'
 import * as actions from '../actions/action';
 import _ from 'lodash';
 
 // สร้าง component ที่จะใช้แสดงตัว comment
-class DiscussionComment extends Component {  
-    
-    delTask(item) {
 
-    }
-    render() {
-        
-        // รับข้อมูล comment ที่จะแสดงผ่านทาง props line 23 <button onClick={()=>this.delTask(comment)}>Delete</button>   
-        var comment = this.props.comment;
-        return (
-            <tr><td width="100%">
-            <div>{comment.name}</div>
-            </td>
-                <td> <button className="btn btn-danger" onClick={()=>this.delTask(comment)}>Delete</button>
-
-                                 </td></tr>
-        );
-    }
-}
- 
 // สร้าง component ที่จะเอาไว้ทำ iteration
 // var tasks ={
 //     name:"",
@@ -38,6 +19,12 @@ class DiscussionList extends Component {
     //     super(props);
     //     this.state = {tasks: []};
     // }
+    onDeleteClick(id) {
+        // console.log(id);
+        this.props.deleteTask(id);
+        this.props.load();
+        // const{id}=this.props.match.params;
+        } 
     componentDidMount() {
        this.props.load();
        // this.props.testAction();
@@ -45,7 +32,14 @@ class DiscussionList extends Component {
     renderTasks(){
             return _.map(this.props.tasks,task => {
                 return(
-                        <DiscussionComment key={task.id} comment={task} />
+                        <tr key={task.id}><td width="100%">
+            <div>{task.name}</div>
+            </td>
+                <td> <button className="btn btn-danger" onClick={()=>this.onDeleteClick(task.id)}>
+                Delete
+                </button>
+
+                                 </td></tr>
 
                     );
 
@@ -76,6 +70,6 @@ function mapStateToProps(state){
     return { tasks: state.loadpage };
 }
 function mapDispatchToProps(dispatch){
-    return bindActionCreators({load:load}, dispatch);
+    return bindActionCreators({load:load }, dispatch);
 }
 export default connect(mapStateToProps, actions)(DiscussionList);

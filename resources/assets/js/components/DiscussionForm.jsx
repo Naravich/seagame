@@ -4,6 +4,10 @@ import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 // import { taskAdd } from '../actions/action';
 import { bindActionCreators } from 'redux';
+import {connect} from 'react-redux';
+import {createTask , load} from '../actions/action';
+
+
  
 class DiscussionForm extends Component {  
     renderField(field){
@@ -25,8 +29,10 @@ class DiscussionForm extends Component {
             );
     }
     onSubmit(values) {
-            //this ===component
             console.log(values);
+            this.props.createTask(values);
+            this.props.load();
+
         }
     render() {
         const {handleSubmit}=this.props;
@@ -41,7 +47,7 @@ class DiscussionForm extends Component {
                             <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
                                 <Field 
                                     lable="Task"
-                                    name="task"
+                                    name="name"
                                     component={this.renderField}
                                 />
                                 <button type="submit" className="btn btn-danger">Add</button>
@@ -60,10 +66,10 @@ class DiscussionForm extends Component {
 }
 
 function validate(values){
-    //console.log(values)->{task:'asdf'}
+    // console.log(values)->{task:'asdf'}
     const errors={};
-    if(!values.task){
-        errors.task="Please enter a task";
+    if(!values.name){
+        errors.name="Please enter a task";
     }
     //Validate the inputs from 'values'
     return errors;
@@ -72,5 +78,7 @@ function validate(values){
 export default reduxForm({
     validate,
     form:'PostsNewForm'
-})(DiscussionForm);
+})(
+    connect(null,{createTask ,load})(DiscussionForm)
+);
  //module.exports = DiscussionForm;

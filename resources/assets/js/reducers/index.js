@@ -1,7 +1,6 @@
 import { combineReducers } from 'redux'
 import reducer from './reducers'
 import { reducer as formReducer } from 'redux-form';
-
 // ใช้ combineReducers เพื่อรวม reducer แต่ละตัวเข้าเป็นหนึ่ง
 // export default combineReducers({
 // 	  constructor(props) {
@@ -14,6 +13,6 @@ import { reducer as formReducer } from 'redux-form';
 // })
 const rootReducer = combineReducers({
   loadpage: reducer,
-  form:formReducer
+  form:formReducer,
 });
 export default rootReducer
